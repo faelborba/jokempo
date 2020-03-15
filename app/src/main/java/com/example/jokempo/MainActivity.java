@@ -2,6 +2,7 @@ package com.example.jokempo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -22,10 +23,15 @@ public class MainActivity extends AppCompatActivity {
     int jogada1=0;
     int jogada2=0;
 
+    MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.alex_play);
+
         jogador1 = findViewById(R.id.jogador1);
         jogador2 = findViewById(R.id.jogador2);
         botaoPapel = findViewById(R.id.botaoPapel);
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tocouBotao(View view){
+        tocaSom();
         jogador1.setScaleX(-1);
         switch (view.getId()){
             case(R.id.botaoPedra):
@@ -119,6 +126,12 @@ public class MainActivity extends AppCompatActivity {
         if ((jogada1==1 && jogada2 == 2)||(jogada1==2 && jogada2 == 3)||(jogada1==3 && jogada2 == 1)){
             Toast.makeText( this,"Você perdeu!", Toast.LENGTH_SHORT).show();
             return;
+        }
+    }
+
+    public void tocaSom(){
+        if(mediaPlayer!=null){
+            mediaPlayer.start();
         }
     }
 }
